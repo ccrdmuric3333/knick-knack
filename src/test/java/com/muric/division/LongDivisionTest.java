@@ -2,6 +2,7 @@ package com.muric.division;
 
 import com.muric.solution.division.api.LongDivision;
 import com.muric.solution.division.impl.LongDivisionOriginal;
+import com.muric.solution.division.impl.LongDivisionSolution;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -12,6 +13,8 @@ public class LongDivisionTest {
     private void setVictim(boolean original){
         if(original){
             victim = new LongDivisionOriginal();
+        } else {
+            victim = new LongDivisionSolution();
         }
     }
 
@@ -30,8 +33,14 @@ public class LongDivisionTest {
     }
 
     @Test(dataProvider = "divisions")
-     public void testDivisionsOriginal(int nominator, int denominator, String result) {
+    public void testDivisionsOriginal(int nominator, int denominator, String result) {
         setVictim(true);
+        Assert.assertEquals(victim.divide(nominator, denominator), result);
+    }
+
+    @Test(dataProvider = "divisions")
+    public void testDivisionsSolution(int nominator, int denominator, String result) {
+        setVictim(false);
         Assert.assertEquals(victim.divide(nominator, denominator), result);
     }
 }

@@ -34,11 +34,6 @@ public class Elimination {
             }
         }
 
-        int[] result = new int[queue.size()];
-        for (int ii=0; null != queue.peek(); ii++){
-            result[ii] = queue.poll();
-        }
-
-        return result;
+        return queue.stream().mapToInt(ii->ii).toArray();
     }
 }
